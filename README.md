@@ -1,15 +1,15 @@
 # Express Authentication
 
-PLEASE NOTE THAT PRIOR TO THIS ASSIGNMENT, YOU NEED TO HAVE FINISHED THE SECTION TITLED "Authentication with Auth0" IN THE PRE-HOMEWORK
+<!-- PLEASE NOTE THAT PRIOR TO THIS ASSIGNMENT, YOU NEED TO HAVE FINISHED THE SECTION TITLED "Authentication with Auth0" IN THE PRE-HOMEWORK -->
 
-## Setup
+<!-- ## Setup -->
 
-1. Initialize and run the app: `npm install` to watch the dependencies be downloaded
+<!-- 1. Initialize and run the app: `npm install` to watch the dependencies be downloaded -->
 
-2. Create a `.env` file with the following structure. Alter the fields wrapped in `<  >` to reflect your Google Cloud SQL database setup. These will be the same credentials we used to set up a connection in MySQL Workbench.
+<!-- 2. Create a `.env` file with the following structure. Alter the fields wrapped in `<  >` to reflect your Google Cloud SQL database setup. These will be the same credentials we used to set up a connection in MySQL Workbench. -->
 
-The other values can be found on your Auth0 profile after completing the pre-homework.
-
+<!-- The other values can be found on your Auth0 profile after completing the pre-homework. -->
+<!-- 
 ```yaml
     DB_HOST=<mySQLWorkbench_Connect_Hostname>
     DB_USER=root
@@ -19,9 +19,9 @@ The other values can be found on your Auth0 profile after completing the pre-hom
     AUTH0_DOMAIN=<findOnAuth0-APIs>>my-express-app>>test>>Node.js>>https://EVERYTHINGbtwHEREandHERE/oauth/token>
     AUTH0_CLIENT_ID=<sameAsAbove_butFind"client_id"inTheBody>
     AUTH0_CLIENT_SECRET=<sameAsAbove_butFind"client_secret"inTheBody>
-```
+``` -->
 
-> *NOTE: Don't include quotes in the `.env` file. If you're having trouble creating a connection with your DB in Google Cloud, try inputting the values directly into the `connection.js` file.*
+<!-- > *NOTE: Don't include quotes in the `.env` file. If you're having trouble creating a connection with your DB in Google Cloud, try inputting the values directly into the `connection.js` file.*
 
 4. Navigate to the `sql/connections.js` file and confirm you understand why the fields are using `process.env.SOMETHING`. Where are they coming from?
 
@@ -32,25 +32,25 @@ The other values can be found on your Auth0 profile after completing the pre-hom
     database: process.env.DB_DEFAULT_SCHEMA
 ```
 
-> *NOTE: Line 1 in `sql/connections.js` is invoking a method on the `dotenv` package. What do you think that is doing?
+> *NOTE: Line 1 in `sql/connections.js` is invoking a method on the `dotenv` package. What do you think that is doing? -->
 
-5. The app is using `nodemon` so you can use `npm start` and any changes made (and saved) will cause the server to restart automatically.
+<!-- 5. The app is using `nodemon` so you can use `npm start` and any changes made (and saved) will cause the server to restart automatically. -->
 
-6. Finally, in MySQL Workbench, run the `initialize.sql` script that is included in this project. You will run this on the "admin" database. You can simply copy the sql from the file into your MySQL Workbench console. Follow the steps under the `imgs` folder if you are having trouble with this.
+<!-- 6. Finally, in MySQL Workbench, run the `initialize.sql` script that is included in this project. You will run this on the "admin" database. You can simply copy the sql from the file into your MySQL Workbench console. Follow the steps under the `imgs` folder if you are having trouble with this. -->
 
-## Overview
+<!-- ## Overview
 
 Note: This is a tough project, but hang in there and try to understand as much as possible. Auth0 is a popular framework for authentication. A lot of the setup is done for us.
 
 The `routes/controllers`, SQL statements and basic setup has been done for us. Our job is now to complete the functions in the middleware folder and then use them in our routes.
 
-Keep in mind that your port (4001) may be different.
+Keep in mind that your port (4001) may be different. -->
 
-## GET users
+<!-- ## GET users
 
-In Postman or a web browser, navigate to `http://localhost:4001/users/` (a GET request) and you should be able to see a list of all the users in your database. This is information that we will leave public.
+In Postman or a web browser, navigate to `http://localhost:4001/users/` (a GET request) and you should be able to see a list of all the users in your database. This is information that we will leave public. -->
 
-## POST / PUT / DELETE
+<!-- ## POST / PUT / DELETE
 
 These routes are for manipulating the data and these are things that we ideally want someone to be logged in for before they are able to work with the data. To start, we will create a middleware function (that Auth0 provides us). We also want to create an empty `.env` file in the main folder. We will use this to hold all of the Auth0 environment variables for our application. We don't want to upload these to Github.
 
@@ -86,13 +86,13 @@ In order to prevent this, we need to go to that route, the third one down in the
 router.post('/', checkJwt, usersController.createUser)
 ```
 
-Now go ahead and attempt to make that POST request again in Postman. The one to `http://localhost:4001/users/`. Try it a couple of times. You should now get a response with a 401 status code and a body that has `UnauthorizedError: No authorization token was found` in it. That's good news, we are now blocking requests to this endpoint until people are authenticated. Add that same middleware to the rest of the routes (that are not GET requests) in the `routers/users.js` file.
+Now go ahead and attempt to make that POST request again in Postman. The one to `http://localhost:4001/users/`. Try it a couple of times. You should now get a response with a 401 status code and a body that has `UnauthorizedError: No authorization token was found` in it. That's good news, we are now blocking requests to this endpoint until people are authenticated. Add that same middleware to the rest of the routes (that are not GET requests) in the `routers/users.js` file. -->
 
-## Authenticating
+<!-- ## Authenticating
 
-So how do users authenticate? We've seen how we can block them but now we actually need certain users to have access. So we need to send the bearer token (jwt). First we'll do a test run.
+So how do users authenticate? We've seen how we can block them but now we actually need certain users to have access. So we need to send the bearer token (jwt). First we'll do a test run. -->
 
-### Testing the JWT
+<!-- ### Testing the JWT
 
 From the Auth0 dashboard in your browser, navigate to APIs (on the left side) -> My Express App (the API you created in pre-homework) -> Test. Midway down the page in the code block labeled "Response", copy the "access token" to your clipboard. It should start with `eyJ0eXAiOiJKV1QiLCJh...` or some close combination of characters.
 
@@ -106,9 +106,9 @@ Execute the request and notice that you are allowed to add users again and see a
 {
     "newId": 502
 }
-```
+``` -->
 
-### Obtaining the JWT
+<!-- ### Obtaining the JWT
 
 Ok so we now have protected routes and some users can access them if they have the appropriate token but where do they get that token from? We need to create a workflow that sends back a token when a user logs in. We need to do that by calling an Auth0 endpoint during the login endpoint.
 
@@ -148,9 +148,9 @@ Remember this information because we are about to use it again. This time go to 
 
 If everything worked correctly you should have received an "access_token" in return. That's the token that we can use to send to your endpoints after a user logs in. Keep in mind that the "users" are now stored in Auth0 and are different from the users we have in our database. Those database users are just dummy data at this point. We won't need to actually store information about our users because Auth0 will do it for us.
 
-If you are having issues you may try going to Auth0 >> Settings/Dashboard >> Applications >> my-express-app >> Show Advanced Settings >> Grant Types >> And selecting "Password"
+If you are having issues you may try going to Auth0 >> Settings/Dashboard >> Applications >> my-express-app >> Show Advanced Settings >> Grant Types >> And selecting "Password" -->
 
-## BONUS - logger
+<!-- ## BONUS - logger
 
 Create a function called `logger` in the `middleware/index.js` file. Its purpose will be to log the route and date/time that each request happened. The outline of the function will look like this:
 
@@ -176,4 +176,4 @@ This is an example of application specific middleware. Every route will now pass
 
 ## Summary
 
-If all went according to plan we now have an API that is locked down with authentication and we have also added middleware on all of our routes that logs the current request and the associated date/time.
+If all went according to plan we now have an API that is locked down with authentication and we have also added middleware on all of our routes that logs the current request and the associated date/time. -->
